@@ -99,16 +99,16 @@ public class ObjectType extends Type
     catch (java.lang.ClassNotFoundException ex)
       {
         /* #ifdef Android */
-        try
-          {
-            return Class.forName(cname, false, getThreadContextClassLoader());
-          }
-        catch (java.lang.ClassNotFoundException ex2)
-          {
-            return Class.forName(cname, false, getContextClassLoader());
-          }
+        // try
+        //   {
+        //     return Class.forName(cname, false, getThreadContextClassLoader());
+        //   }
+        // catch (java.lang.ClassNotFoundException ex2)
+        //   {
+        //     return Class.forName(cname, false, getContextClassLoader());
+        //   }
         /* #else */
-        // return Class.forName(cname, false, getContextClassLoader());
+        return Class.forName(cname, false, getContextClassLoader());
         /* #endif */
       }
     /* instead of */
@@ -145,9 +145,9 @@ public class ObjectType extends Type
     try
       {
         /* #ifdef Android */
-        return ClassLoader.getSystemClassLoader();
+        // return ClassLoader.getSystemClassLoader();
         /* #else */
-        // return Thread.currentThread().getContextClassLoader();
+        return Thread.currentThread().getContextClassLoader();
         /* #endif */
       }
     catch (java.lang.SecurityException ex)
