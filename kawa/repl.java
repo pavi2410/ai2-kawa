@@ -100,6 +100,7 @@ public class repl extends Procedure0or1
     printOption(out, "-d <dirname>", "Directory to place .class files in");
     printOption(out, "-P <prefix>", "Prefix to prepand to class names");
     printOption(out, "-T <topname>", "name to give to top-level class");
+    printOption(out, "--target <version>", "Set bytecode version (1.1, 1.2, 1.3, 1.4, 5, 6, 7, 8)");
     
     printOption(out, "--main", "Generate an application, with a main method");
     printOption(out, "--applet", "Generate an applet");
@@ -373,9 +374,11 @@ public class repl extends Procedure0or1
 	    if (iArg == maxArg)
 	      bad_option (arg);
             arg = args[iArg];
-            if (arg.equals("7"))
+            if (arg.equals("8") || arg.equals("1.8"))
+              Compilation.defaultClassFileVersion = ClassType.JDK_1_8_VERSION;
+            else if (arg.equals("7"))
               Compilation.defaultClassFileVersion = ClassType.JDK_1_7_VERSION;
-            if (arg.equals("6") || arg.equals("1.6"))
+            else if (arg.equals("6") || arg.equals("1.6"))
               Compilation.defaultClassFileVersion = ClassType.JDK_1_6_VERSION;
             else if (arg.equals("5") || arg.equals("1.5"))
               Compilation.defaultClassFileVersion = ClassType.JDK_1_5_VERSION;
