@@ -1,2 +1,16 @@
 *~*
 *.class
+# Build artifacts
+Makefile
+config.log
+config.status
+bin/Makefile
+doc/Makefile
+gnu/*/Makefile
+kawa/*/Makefile
+testsuite/Makefile
+gnu/xquery/testsuite/*.xml
+testsuite/scribble.html
+bin/.deps/
+# Other generated files
+.deps/

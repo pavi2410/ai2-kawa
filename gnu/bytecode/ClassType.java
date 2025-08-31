@@ -15,6 +15,7 @@ public class ClassType extends ObjectType
   public static final int JDK_1_5_VERSION = 49 * 0x10000 + 0;
   public static final int JDK_1_6_VERSION = 50 * 0x10000 + 0;
   public static final int JDK_1_7_VERSION = 51 * 0x10000 + 0;
+  public static final int JDK_1_8_VERSION = 52 * 0x10000 + 0;
 
   // An old but generally valid default value.
   int classfileFormatVersion = JDK_1_1_VERSION;
@@ -42,6 +43,10 @@ public class ClassType extends ObjectType
   public void setClassfileVersionJava5 ()
   {
     setClassfileVersion(JDK_1_5_VERSION);
+  }
+  public void setClassfileVersionJava8 ()
+  {
+    setClassfileVersion(JDK_1_8_VERSION);
   }
 
   /** Find a ClassType with the given name, or create a new one.
