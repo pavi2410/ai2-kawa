@@ -22,9 +22,14 @@ This builds two jars:
                          the servlet and SAX glue, and SRFI libraries that only
                          (require 'srfi-N) loads, which YAIL never emits.
 
-When Kawa's sources change, regenerate the list from the compiler jar:
+It also writes kawa-1.11-runtime.pro, a copy of appinventor-runtime-keep.pro: R8
+keep rules for the runtime classes Kawa loads by name (Class.forName). R8 can't see
+those references, so App Inventor's buildserver passes these rules to R8.
+
+When Kawa's sources change, regenerate both files from the compiler jar:
 
     python3 appinventor-runtime-classes.py kawa-1.11-compiler.jar > classes-to-skip-for-appinventor-runtime
+    python3 appinventor-runtime-classes.py --keep-rules kawa-1.11-compiler.jar > appinventor-runtime-keep.pro
 
 KAWA, THE JAVA-BASED SCHEME SYSTEM
 ----------------------------------

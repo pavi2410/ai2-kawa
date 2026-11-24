@@ -2,3 +2,4 @@
 *.class
 *.jar
 kawa/Version.java
+kawa-*.pro
