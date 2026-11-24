@@ -3,6 +3,34 @@ NOTE: This Version of Kawa is Modified for App Inventor
 
 To compile and build Kawa for App Inventor run "ant appinventor".
 
+Build with a Java 8 JDK and target Java 7, as App Inventor's jar has always been:
+
+    ant -Dant.build.javac.source=1.7 -Dant.build.javac.target=1.7 appinventor
+
+Newer JDKs fail: on Java 14+ java.lang.Record clashes with Kawa's Record, and on
+Java 9+ kawa/lib/kawa/regex.scm hits an ambiguous Matcher.replaceAll overload.
+Compiling Kawa's Scheme libraries against newer JDK classes could also link them
+to methods that older Android versions lack.
+
+This builds two jars:
+
+  kawa-1.11-compiler.jar The full jar. App Inventor's buildserver compiles YAIL
+                         with it (kawa.repl -C).
+  kawa-1.11-runtime.jar  The classes an app can load on the device, for dexing.
+                         It leaves out the classes listed in
+                         classes-to-skip-for-appinventor-runtime: other languages,
+                         the servlet and SAX glue, and SRFI libraries that only
+                         (require 'srfi-N) loads, which YAIL never emits.
+
+It also writes kawa-1.11-runtime.pro, a copy of appinventor-runtime-keep.pro: R8
+keep rules for the runtime classes Kawa loads by name (Class.forName). R8 can't see
+those references, so App Inventor's buildserver passes these rules to R8.
+
+When Kawa's sources change, regenerate both files from the compiler jar:
+
+    python3 appinventor-runtime-classes.py kawa-1.11-compiler.jar > classes-to-skip-for-appinventor-runtime
+    python3 appinventor-runtime-classes.py --keep-rules kawa-1.11-compiler.jar > appinventor-runtime-keep.pro
+
 KAWA, THE JAVA-BASED SCHEME SYSTEM
 ----------------------------------
 
