@@ -1,2 +1,4 @@
 *~*
 *.class
+*.jar
+kawa/Version.java
